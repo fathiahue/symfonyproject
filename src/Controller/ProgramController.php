@@ -18,4 +18,14 @@ class ProgramController extends AbstractController
             'website' => 'Wild Séries',
          ]);
 }
+
+    /**
+     * @Route("/programs/{id}", requirements={"id"="\d+"}, methods={"GET"}, name="program_show")
+     */
+    public function show(int $id = 4): Response
+    {
+        return $this->redirectToRoute('program/show', ['id' => 4]);
+    }
+       
+
 }
