@@ -11,15 +11,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 /**
- * @Route("/categories/", name="category_index")
+ * @Route("/categories", name="category_")
  */
 class CategoryController extends AbstractController
 {
-    
+    /**
+    * @Route("/", name="index")
+    */
         public function index() : Response
 
      {
-        $category = $this->getDoctrine()
+        $categories = $this->getDoctrine()
             ->getRepository(Category::class)
             ->findAll();
             return $this->render(
