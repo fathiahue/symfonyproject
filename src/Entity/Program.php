@@ -5,6 +5,12 @@ namespace App\Entity;
 use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +18,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Program
 {
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new UniqueEntity([
+            'fields' => 'title',
+            'message' => 'This title already exists!!'
+        ]));
+
+        $metadata->addPropertyConstraint('title', new Assert\Title());
+    }
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -21,11 +37,14 @@ class Program
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="ne me laisse pas tout vide")
+     * @Assert\Length(max="255")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $summary;
 

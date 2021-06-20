@@ -18,6 +18,7 @@ class ProgramType extends AbstractType
             ->add('poster')
             ->add('category', null, ['choice_label' => 'name'])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
